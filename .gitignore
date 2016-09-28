@@ -1,0 +1,10 @@
+# Python virtualenv and bytecode
+env/
+__pycache__/
+
+# Text editor stuff
+*.swp
+*.session
+
+# Config files
+*.config
