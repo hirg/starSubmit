@@ -22,11 +22,12 @@ class SubmissionFile(object):
 
         self.tree = et.ElementTree(self.job)
 
-    def create_package(self):
+    def create_package(self, package_name):
         """Create the package sub element"""
         self.sandbox = et.SubElement(self.job, 'SandBox')
         self.sandbox.set('installer', 'ZIP')
         self.package = et.SubElement(self.sandbox, 'Package')
+        self.package.set('name', package_name)
 
     def set_location(self, location):
         """Set the attribute of the location element"""
@@ -129,6 +130,8 @@ class Submission(object):
         for command in config['input']['commands'].split(self.major_split):
             self.commands.append(command.strip())
 
+        if config.has_option('package', 'package_name'):
+            self.subfile.create_package(config['package']['package_name'])
         self.package_files = []
         if config.has_option('package', 'files'):
             for files in config['package']['files'].split(self.major_split):
