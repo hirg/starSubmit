@@ -45,7 +45,7 @@ class SubmissionFile(object):
         for inputs in input_list:
             (specifier, n_files, file_or_catalog) = inputs
             if file_or_catalog == 'f':
-                URL = 'file:'
+                URL = 'filelist:'
             else:
                 URL = 'catalog:star.bnl.gov?'
             input_list = et.SubElement(self.job, 'input')
