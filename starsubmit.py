@@ -3,6 +3,7 @@ import xml.dom.minidom as md
 from configparser import ConfigParser as cp
 from configparser import ExtendedInterpolation
 from argparse import ArgumentParser as ap
+import subprocess
 
 class SubmissionFile(object):
     """An object that represents an XML file for an RCF submission"""
@@ -164,9 +165,23 @@ if __name__ == '__main__':
 
     argparser = ap()
     argparser.add_argument('config_file')
+    argparser.add_argument('-f', '--file', help='Name of xml file to write to')
+    argparser.add_argument('-s', '--submit',  help='Submit xml file after writing',
+                            action='store_true')
     args = argparser.parse_args()
 
     sub = Submission(args.config_file)
     sub.make_xml()
-    print(sub.subfile)
+
+
+    if args.file:
+        with open(args.file, 'w') as f:
+            f.write(sub.subfile.__str__())
+    else:
+        print(sub.subfile)
+
+    if args.submit and args.file:
+        subprocess.call(['star-submit', args.file])
+    elif args.submit:
+        print('User invoked --submit but did not specify an xml file with --file')
 
