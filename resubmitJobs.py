@@ -98,9 +98,9 @@ def resubmit_jobs(session_file, jobs):
     """Given a session file and list of job indices, resubmit those jobs"""
     job_index_string = ''
     for job in jobs:
-        job_index_string += '{}, '.format(job)
+        job_index_string += '{},'.format(job)
 
-    job_index_string = job_index_string[:-2]
+    job_index_string = job_index_string[:-1]
 
     resubmit_string = 'star-submit -r {} {}'.format(job_index_string, session_file)
     subprocess.call([resubmit_string], shell=True)
