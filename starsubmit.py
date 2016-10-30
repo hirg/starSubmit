@@ -122,11 +122,12 @@ class Submission(object):
             self.output_list.append( (glob.strip(), location.strip()) )
 
         self.input_list = []
-        for files in config['input']['files'].split(self.major_split):
-            (specifier, n_files, file_or_catalog) = files.split(self.minor_split)
-            self.input_list.append( ( specifier.strip(), 
-                                      n_files.strip(), 
-                                      file_or_catalog.strip()) )
+        if config['input']['files']:
+            for files in config['input']['files'].split(self.major_split):
+                (specifier, n_files, file_or_catalog) = files.split(self.minor_split)
+                self.input_list.append( ( specifier.strip(), 
+                                          n_files.strip(), 
+                                          file_or_catalog.strip()) )
 
         self.commands = []
         for command in config['input']['commands'].split(self.major_split):
