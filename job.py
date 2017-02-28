@@ -14,7 +14,7 @@ class Job(object):
             generator_report_location = '',
             sandbox_installer_option = 'ZIP',
             sandbox_package_name = '',
-            sandbox_files = '',
+            sandbox_files = [],
             input_files = [],
             output_files = [])
 
@@ -38,4 +38,17 @@ class Job(object):
        elif isinstance(new_commands, list):
            for com in new_commands:
                self.config['commands'].append(com)
+        
+    def add_files(self, new_files, list_name):
+       """Add a file or list of files to one of several config options
+       'list_name' option should be one of: 'sandbox_files', 
+                                            'input_files', 
+                                            'output_files'
+       
+       """
+       if isinstance(new_files, str):
+           self.config[list_name].append(new_files)
+       elif isinstance(new_files, list):
+           for f in new_files:
+               self.config[list_name].append(f)
         
