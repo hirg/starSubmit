@@ -26,4 +26,8 @@ class Job(object):
             self.config.update(kwargs)
 
 
-    
+    def add_job_attribute(self, attribute, value):
+       """Add an attribute/value pair to the job attributes dictionary"""
+       new_attribute = { str(attribute) : '"{}"'.format(value) }
+       self.config['attributes'].update( new_attribute )
+        
