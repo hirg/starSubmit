@@ -31,3 +31,11 @@ class Job(object):
        new_attribute = { str(attribute) : '"{}"'.format(value) }
        self.config['attributes'].update( new_attribute )
         
+    def add_commands(self, new_commands):
+       """Add a command or list of commands to the job command list"""
+       if isinstance(new_commands, str):
+           self.config['commands'].append(new_commands)
+       elif isinstance(new_commands, list):
+           for com in new_commands:
+               self.config['commands'].append(com)
+        
