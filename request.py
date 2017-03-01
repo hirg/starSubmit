@@ -1,6 +1,8 @@
 import xml.etree.ElementTree as et
 import xml.dom.minidom as md
 from job import Job
+from argparse import ArgumentParser as ap
+import subprocess
 
 class Request(object):
     """An object that represents a single scheduler request"""
@@ -68,3 +70,28 @@ class Request(object):
         dom = md.parseString( et.tostring(self.tree) ) 
         bytes_str = dom.toprettyxml(encoding = 'utf-8')
         return bytes_str.decode('utf-8')
+
+
+if __name__ == '__main__':
+
+    argparser = ap()
+    argparser.add_argument('config_file')
+    argparser.add_argument('-f', '--file', help='Name of xml file to write to')
+    argparser.add_argument('-s', '--submit',  help='Submit xml file after writing',
+                            action='store_true')
+    args = argparser.parse_args()
+
+    job = Job(config_file=args.config_file)
+    req = Request(job)
+
+    if args.file:
+        with open(args.file, 'w') as f:
+            f.write(req.__str__())
+    else:
+        print(req)
+
+    if args.submit and args.file:
+        subprocess.call(['star-submit', args.file])
+    elif args.submit:
+        print('User invoked --submit but did not specify an xml file with --file')
+
