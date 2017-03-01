@@ -57,7 +57,6 @@ class Request(object):
         stderr = et.SubElement(root, 'stderr')
         stderr.set('URL', job.config['stderr_path'])
 
-
         return root
 
     def make_xml(self):
