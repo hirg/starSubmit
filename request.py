@@ -5,15 +5,9 @@ from job import Job
 class Request(object):
     """An object that represents a single scheduler request"""
 
-    def __init__(self, jobs = []):
+    def __init__(self, job = Job()):
         """Initialize some defaults"""
-        self.jobs = []
-        if isinstance(jobs, Job):
-            self.jobs.append( jobs )
-        elif isinstance(jobs, list):
-            for job in jobs:
-                if isinstance(job, Job):
-                    self.jobs.append(job)
+        self.job = job
 
     def get_job_tree(self, job):
         """Turn a Job object into an xml element tree"""
@@ -61,8 +55,7 @@ class Request(object):
 
     def make_xml(self):
         """Iterate over jobs and make and xml document out of them"""
-        for job in self.jobs:
-            self.tree = self.get_job_tree(job)
+        self.tree = self.get_job_tree(self.job)
         
     def __str__(self):
         self.make_xml()
