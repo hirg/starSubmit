@@ -7,7 +7,7 @@ class Job(object):
     def __init__(self, **kwargs):
         """Set some variables"""
         self.config = dict(
-            attributes = {'simulateSubmission' : 'true',
+            attributes = {'simulateSubmission' : 'false',
                           'fileListSyntax' : 'xrootd' },
             commands = [],
             generator_location = '',
