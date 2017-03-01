@@ -51,6 +51,13 @@ class Request(object):
             output_files.set('toURL', toUrl)
             output_files.set('fromScratch', from_scratch)
 
+        # Specify stdout and stderr
+        stdout = et.SubElement(root, 'stdout')
+        stdout.set('discard', 'true')
+        stderr = et.SubElement(root, 'stderr')
+        stderr.set('URL', job.config['stderr_path'])
+
+
         return root
 
     def make_xml(self):
@@ -62,5 +69,3 @@ class Request(object):
         dom = md.parseString( et.tostring(self.tree) ) 
         bytes_str = dom.toprettyxml(encoding = 'utf-8')
         return bytes_str.decode('utf-8')
-
-
