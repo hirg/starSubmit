@@ -46,14 +46,16 @@ class Request(object):
             sandbox_files.text = f
 
         # Add input files
-        for f in job.config['input_files']:
+        for url, n_files in job.config['input_files']:
             input_files = et.SubElement(root, 'input')
-            input_files.set('URL', f)
+            input_files.set('URL', url)
+            input_files.set('nFiles', n_files)
 
         # Add output files
-        for f in job.config['output_files']:
+        for toUrl, from_scratch in job.config['output_files']:
             output_files = et.SubElement(root, 'output')
-            output_files.set('toURL', f)
+            output_files.set('toURL', toUrl)
+            output_files.set('fromScratch', from_scratch)
 
         return root
 
