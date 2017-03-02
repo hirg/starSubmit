@@ -15,7 +15,7 @@ class Job(object):
             commands = [],
             generator_location = '',
             generator_report_location = '',
-            sandbox_installer_option = 'ZIP',
+            sandbox_installer_option = '',
             sandbox_package_name = '',
             sandbox_files = [],
             input_files = [],

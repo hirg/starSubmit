@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as et
 import xml.dom.minidom as md
-from job import Job
+from .job import Job
 from argparse import ArgumentParser as ap
 import subprocess
 
@@ -33,8 +33,9 @@ class Request(object):
         generator_report_location.text = job.config['generator_report_location']
 
         # Add Sandbox stuff
-        sandbox = et.SubElement(root, 'Sandbox')
-        sandbox.set('installer', job.config['sandbox_installer_option'])
+        sandbox = et.SubElement(root, 'SandBox')
+        if job.config['sandbox_installer_option']:
+            sandbox.set('installer', job.config['sandbox_installer_option'])
         sandbox_package = et.SubElement(sandbox, 'Package')
         sandbox_package.set('name', job.config['sandbox_package_name'])
         for f in job.config['sandbox_files']:
